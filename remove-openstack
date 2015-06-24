@@ -3,6 +3,22 @@ for x in $(virsh list --all | grep instance- | awk '{print $2}') ; do
     virsh undefine $x ;
 done ;
 
+for x in $(ovs-vsctl list-ports br-ex);do
+    ovs-vsctl -- --if-exists del-port br-ex $x;
+ovs-vsctl -- --if-exists del-br br-ex;
+done;
+
+for x in $(ovs-vsctl list-ports br-tun);do
+    ovs-vsctl -- --if-exists del-port br-tun $x;
+ovs-vsctl -- -if-exists del-br br-tun;
+done;
+
+for x in $(ovs-vsctl list-ports br-int);do
+    ovs-vsctl -- --if-exists del-port br-int $x;
+ovs-vsctl -- --if-exists del-br br-int;
+done;
+
+
 yum remove -y nrpe "*ovs*" "*openvswitch*" "*neutron*" "*quantum*" "*nagios*" puppet "*ntp*" "*openstack*" \
 "*nova*" "*keystone*" "*glance*" "*cinder*" "*swift*" mysql mysql-server httpd "*memcache*" scsi-target-utils \
 iscsi-initiator-utils perl-DBI perl-DBD-MySQL "*ceilometer*" "*python-django-horizon*";
