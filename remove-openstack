@@ -5,18 +5,18 @@ done ;
 
 for x in $(ovs-vsctl list-ports br-ex);do
     ovs-vsctl -- --if-exists del-port br-ex $x;
-ovs-vsctl -- --if-exists del-br br-ex;
 done;
+ovs-vsctl -- --if-exists del-br br-ex;
 
 for x in $(ovs-vsctl list-ports br-tun);do
     ovs-vsctl -- --if-exists del-port br-tun $x;
-ovs-vsctl -- -if-exists del-br br-tun;
 done;
+ovs-vsctl -- -if-exists del-br br-tun;
 
 for x in $(ovs-vsctl list-ports br-int);do
     ovs-vsctl -- --if-exists del-port br-int $x;
-ovs-vsctl -- --if-exists del-br br-int;
 done;
+ovs-vsctl -- --if-exists del-br br-int;
 
 
 yum remove -y nrpe "*ovs*" "*openvswitch*" "*neutron*" "*quantum*" "*nagios*" puppet "*ntp*" "*openstack*" \
